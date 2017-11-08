@@ -24,11 +24,12 @@ module Sensu
       # Returns configuration for an API
       def api
         return @api if @api
-        @api = if @settings[:api].key?(:endpoints) && @settings[:api][:endpoints].is_a?(Array)
-                 @settings[:api][:endpoints].sample
-               else
-                 @settings[:api] || {}
-               end
+        @api = @settings[:api] || {}
+        if @api.key?(:endpoints) && @api[:endpoints].is_a?(Array)
+          @api = @api[:endpoints].sample
+        else
+          @api
+        end
       end
 
       # Remove the Sensu client from the registry, using the Sensu
@@ -38,7 +39,7 @@ module Sensu
       # @param event [Hash]
       # @return [TrueClass, FalseClass]
       def remove_sensu_client!(event)
-        http = Net::HTTP.new(api_settings.fetch(:host, '127.0.0.1'), api_settings.fetch(:port, 4567))
+        http = Net::HTTP.new(api.fetch(:host, '127.0.0.1'), api.fetch(:port, 4567))
         client_name = event[:client][:name]
         request = Net::HTTP::Delete.new("/clients/#{client_name}")
         if api[:user] && api[:password]
