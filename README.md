@@ -1,5 +1,7 @@
 # Sensu::Extensions::Deregistration
 
+**NOTE: This extension is considered experimental and needs testing!**
+
 For each event recieved, this handler extension deletes the corresponding client via the /clients API
 
 ## Installation
