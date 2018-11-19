@@ -51,6 +51,7 @@ module Sensu
 
       def run(event, &callback)
         handle = proc do
+          event = Sensu::JSON.load(event)
           client_name = event[:client][:name]
           begin
             Timeout.timeout(options[:timeout]) do

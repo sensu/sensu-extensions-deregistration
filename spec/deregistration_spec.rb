@@ -20,7 +20,7 @@ describe 'Sensu::Extension::Deregistration' do
 
     it 'can delete a client' do
       async_wrapper do
-        @extension.safe_run(event_template) do |output, status|
+        @extension.safe_run(Sensu::JSON.dump(event_template)) do |output, status|
           puts output.inspect
           expect(output).to eq("deleted client #{client_template[:name]}")
           expect(status).to eq(0)
@@ -39,7 +39,7 @@ describe 'Sensu::Extension::Deregistration' do
     end
     it 'can delete a client' do
       async_wrapper do
-        @extension.safe_run(event_template) do |output, status|
+        @extension.safe_run(Sensu::JSON.dump(event_template)) do |output, status|
           puts output.inspect
           expect(output).to eq("deleted client #{client_template[:name]}")
           expect(status).to eq(0)
@@ -60,7 +60,7 @@ describe 'Sensu::Extension::Deregistration' do
     end
     it 'can delete a client' do
       async_wrapper do
-        @extension.safe_run(event_template) do |output, status|
+        @extension.safe_run(Sensu::JSON.dump(event_template)) do |output, status|
           puts output.inspect
           expect(output).to eq("deleted client #{client_template[:name]}")
           expect(status).to eq(0)
